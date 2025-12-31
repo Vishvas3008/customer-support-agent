@@ -1,4 +1,4 @@
-import { db } from './database';
+import db from './database';
 import { Conversation, Message, ConversationModel, MessageModel } from './types';
 
 export class DatabaseService {
