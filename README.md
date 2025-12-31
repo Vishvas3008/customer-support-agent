@@ -107,6 +107,6 @@ If I had more time:
 ## Deployed URL
 
 ```
-<add deployed URL here>
+https://customer-support-agent-beta.vercel.app
 ```
 ---
