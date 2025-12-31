@@ -1,5 +1,16 @@
 {
-  "dependencies": {
-    "@google/generative-ai": "^0.24.1"
-  }
+  "name": "customer-reply-agent",
+  "version": "1.0.0",
+  "description": "This project is a small AI-powered customer support chat app built as part of the Spur Founding Full-Stack Engineer take-home assignment.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "author": "",
+  "license": "ISC"
 }

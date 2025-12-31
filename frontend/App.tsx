@@ -6,7 +6,7 @@ import { Message, Conversation } from './types.ts';
 import Sidebar from './components/Sidebar.tsx';
 import ChatMessage from './components/ChatMessage.tsx';
 import ChatInput from './components/ChatInput.tsx';
-import { Menu, X, Info, HelpCircle } from 'lucide-react';
+import { Menu, X, Info, HelpCircle, CloudCog } from 'lucide-react';
 import { STORE_KNOWLEDGE } from './constants.ts';
 
 export default function App() {
@@ -85,17 +85,33 @@ export default function App() {
   const handleSendMessage = async (text: string) => {
     setIsLoading(true);
     setError(null);
+    const tempUserMessage = {
+      id: `temp-u-${Date.now()}`,
+      conversationId: activeId ?? 'temp',
+      sender: 'user',
+      text,
+      timestamp: Date.now()
+    };
+  
+    // 1️⃣ Optimistically show user message
+    setMessages(prev => [...prev, tempUserMessage]);
+  
     try {
       const response = await chatService.sendMessage(text, activeId);
-      
+      console.log(response)
       if (!activeId) {
         setActiveId(response.sessionId);
         const updatedConvs = await dbService.getConversations();
         setConversations(updatedConvs);
       }
-      
-      const updatedMessages = await dbService.getMessagesBySession(response.sessionId);
-      setMessages(updatedMessages);
+      const aiMessage = {
+        id: `ai-${Date.now()}`,
+        conversationId: response.sessionId,
+        sender: 'ai',
+        text: response.reply,
+        timestamp: Date.now()
+      };
+      setMessages(prev => prev.concat(aiMessage));
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
       if (activeId) {
@@ -153,15 +169,6 @@ export default function App() {
                 <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">AI Agent Active</span>
               </div>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-full border border-slate-200 transition-colors">
-              <Info size={14} />
-              Policies
-            </button>
-            <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors">
-              <HelpCircle size={18} />
-            </button>
           </div>
         </header>
 
