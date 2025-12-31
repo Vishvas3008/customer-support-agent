@@ -4,7 +4,7 @@ import path from 'path';
 const DB_PATH = path.join(__dirname, '..', 'lumina_support.db');
 
 // Initialize database connection
-const db = new Database(DB_PATH);
+const db: any = new Database(DB_PATH);
 
 // Enable foreign keys
 db.pragma('foreign_keys = ON');
