@@ -1,5 +1,5 @@
 
-export const API_BASE_URL = "https://customer-support-agent-yl4n.onrender.com/" // || 'http://localhost:8000';
+export const API_BASE_URL = "https://customer-support-agent-yl4n.onrender.com" // || 'http://localhost:8000';
 
 export const STORE_KNOWLEDGE = {
   name: "Lumina Gear",
