@@ -1,18 +1,16 @@
 import Database from 'better-sqlite3';
 import path from 'path';
-import { ConversationModel, MessageModel } from './types';
 
 const DB_PATH = path.join(__dirname, '..', 'lumina_support.db');
 
 // Initialize database connection
-export const db = new Database(DB_PATH);
+const db = new Database(DB_PATH);
 
 // Enable foreign keys
 db.pragma('foreign_keys = ON');
 
 // Initialize database tables
 export function initDb(): void {
-  // Create conversations table
   db.exec(`
     CREATE TABLE IF NOT EXISTS conversations (
       id TEXT PRIMARY KEY,
@@ -22,7 +20,6 @@ export function initDb(): void {
     )
   `);
 
-  // Create messages table
   db.exec(`
     CREATE TABLE IF NOT EXISTS messages (
       id TEXT PRIMARY KEY,
@@ -34,10 +31,11 @@ export function initDb(): void {
     )
   `);
 
-  // Create indexes for better performance
   db.exec(`
-    CREATE INDEX IF NOT EXISTS idx_messages_conversation_id ON messages(conversation_id);
-    CREATE INDEX IF NOT EXISTS idx_conversations_created_at ON conversations(created_at);
+    CREATE INDEX IF NOT EXISTS idx_messages_conversation_id
+      ON messages(conversation_id);
+    CREATE INDEX IF NOT EXISTS idx_conversations_created_at
+      ON conversations(created_at);
   `);
 }
 
@@ -46,3 +44,4 @@ export function closeDb(): void {
   db.close();
 }
 
+export default db;

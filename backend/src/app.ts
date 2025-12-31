@@ -13,7 +13,7 @@ dotenv.config({ path: envPath });
 dotenv.config(); // Also try loading from root directory
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = 8000;
 
 // Middleware
 app.use(cors({
