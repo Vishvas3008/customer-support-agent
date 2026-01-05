@@ -1,7 +1,7 @@
 
 # AI Live Chat Support Agent
 
-This project is a small AI-powered customer support chat app built as part of the Spur Founding Full-Stack Engineer take-home assignment.
+This project is a small AI-powered customer support chat app.
 
 It recreates a simple live chat experience where users can ask questions about a fictional e-commerce store and get helpful, conversational replies from an AI agent powered by a real LLM.
 
